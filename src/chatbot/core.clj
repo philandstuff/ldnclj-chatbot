@@ -24,7 +24,7 @@
   (let [concat-terms (clojure.string/join
                       "+" (remove common-words terms))
         uri    (str "http://search.twitter.com/search.json?q="
-                 concat-terms)
+                 (java.net.URLEncoder/encode concat-terms "UTF-8"))
         result (read-json (slurp (java.net.URI. uri)))
         tweet  (or (first (filter
                            (complement (partial some #{\@}))
